@@ -708,7 +708,7 @@ const COL={1:"#c62f2a",2:"#6b2fb3",3:"#d9822b",4:"#1f78b4",5:"#2f7d4f",6:"#a6366
 const STAGES={
 1:{t:"Kleblealm – Hochstubaihütte",dav:"5,9 km · 1.200 hm ↑ · 4 h",sac:"T3–T4"},
 2:{t:"Hochstubaihütte – Hildesheimer Hütte",dav:"9 km · 800 ↑ / 1.050 ↓ · 5½ h",sac:"T4, Gletscher"},
-3:{t:"Hildesheimer Hütte – Siegerlandhütte",dav:"13,7 km · 1.300 ↑ / 1.500 ↓ · 9 h",sac:"T2",warn:"OSM-Weg nur 5,3 km / ca. 420 hm ↑ – DAV-Angaben klären"},
+3:{t:"Hildesheimer Hütte – Siegerlandhütte",dav:"13,7 km · 1.300 ↑ / 1.500 ↓ · 9 h",sac:"T2",warn:"Hinweis: Der Standardweg über Gamsplatzl ist ca. 5,3 km lang. Die Ausschreibung enthält vermutlich eine zusätzliche Variante oder einen Gipfel."},
 4:{t:"Siegerlandhütte – Gasthaus Hochfirst",dav:"9,2 km · 250 ↑ / 1.150 ↓ · 4½ h",sac:"T2–T4"},
 5:{t:"Gasthaus Hochfirst – Brunnenkogelhaus",dav:"12 km · 1.350 ↑ / 400 ↓ · 7 h",sac:"T2–T3, Grat mit Ketten"},
 6:{t:"Brunnenkogelhaus – Alpengasthof Fiegl",dav:"4,9 km · 800 ↓ · 2½ h",sac:"T1"}};
@@ -759,7 +759,7 @@ const days=document.getElementById("days"),info=document.getElementById("info");
 function select(v){cur=v;days.querySelectorAll("button").forEach(b=>b.setAttribute("aria-pressed",b.id==="b"+v));
   for(const d in lines){const on=v===0||+d===v;lines[d].eachLayer(l=>{if(l.setStyle)l.setStyle({opacity:on?(l.options.color==="#fff"?.9:1):.25});else l.setOpacity(on?1:.3)});}
   if(v===0){const tot=Object.values(ROUTES).reduce((a,r)=>a+r.km,0);info.innerHTML=`<span class="k">6 Etappen · ${tot.toFixed(1).replace(".",",")} km auf OSM-Wegen</span>`;fit(L.latLngBounds(all));}
-  else{const s=STAGES[v];info.innerHTML=`<b>${s.t}</b><br><span class="k">OSM-Weg:</span> ${ROUTES[v].km.toFixed(1).replace(".",",")} km · ${s.sac}<br><span class="k">DAV:</span> ${s.dav}${s.warn?`<br><b style="color:#b3261e">${s.warn}</b>`:""}`;
+  else{const s=STAGES[v];info.innerHTML=`<b>${s.t}</b><br><span class="k">OSM-Weg:</span> ${ROUTES[v].km.toFixed(1).replace(".",",")} km · ${s.sac}<br><span class="k">DAV:</span> ${s.dav}${s.warn?`<br><span style="color:#8a5a00">${s.warn}</span>`:""}`;
     fit(L.latLngBounds(ROUTES[v].pts));}
   document.getElementById("gpx").textContent=v===0?"GPX herunterladen (alle Etappen)":`GPX Tag ${v} herunterladen`;}
 document.getElementById("gpx").onclick=()=>{const ds=cur===0?Object.keys(ROUTES):[String(cur)];
